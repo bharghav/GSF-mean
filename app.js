@@ -1,5 +1,13 @@
 const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
+mongoose.connect('mongodb://gsfadmin:gsfadmin@cluster0-shard-00-00-qjhhz.mongodb.net:27017,cluster0-shard-00-01-qjhhz.mongodb.net:27017,cluster0-shard-00-02-qjhhz.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',
+{
+    useNewUrlParser: true
+});
+const db = mongoose.connection;
 
 // initialize app
 const app = express();
@@ -9,15 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Orgin", "*");
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    if(req.method == "OPTIONS"){
-        res.header("Access-Control-Allow-Orgin",'PUT,GET,POST,DELETE,PATCH');
-        return res.status(200).json({});
-    }
-    next();
-});
+app.use(cors());
 
 const usersRoutes = require('./api/routes/users');
 

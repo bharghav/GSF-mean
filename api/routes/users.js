@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const Users = require('../models/users');
 
 router.get('/', (req, res, next) => {
          res.status(200).json({
@@ -9,12 +10,19 @@ router.get('/', (req, res, next) => {
      });
 
 router.post('/', (req, res, next) => {
-    const users = {
+    
+    const users = new Product({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         city: req.body.city,
         amount: req.body.amount
-    }
-
+    });
+    users
+    .save()
+    .then(result =>{
+        console.log(result);
+    })
+    .catch(err => console.log(err));
     res.status(200).json({
         message : "Handling post request for /users",
         createdUsers : users
