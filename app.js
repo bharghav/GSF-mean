@@ -13,7 +13,9 @@ const db = mongoose.connection;
 const app = express();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 // parse application/json
 app.use(bodyParser.json());
 
@@ -22,7 +24,7 @@ app.use(cors());
 const usersRoutes = require('./api/routes/users');
 
 //Routes with handle server
-app.use('/users',usersRoutes);
+app.use('/users', usersRoutes);
 
 
 app.use((req, res, next) => {
@@ -39,10 +41,7 @@ app.use((error, req, res, next) => {
         }
     })
 });
-// app.use((req, res, next) => {
-//     res.status(200).json({
-//         message : "itworks !"
-//     });
-// });
+
+
 
 module.exports = app;
