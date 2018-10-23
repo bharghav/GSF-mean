@@ -9,8 +9,15 @@ router.get('/', (req, res, next) => {
      });
 
 router.post('/', (req, res, next) => {
+    const users = {
+        name: req.body.name,
+        city: req.body.city,
+        amount: req.body.amount
+    }
+
     res.status(200).json({
-        message : "Handling post request for /users"
+        message : "Handling post request for /users",
+        createdUsers : users
     });
 });
 
