@@ -8,4 +8,4 @@ const usersSchema = mongoose.Schema({
    amount: Number
 });
 
-module.exports = mongoose.model('gsfmean', usersSchema);
+module.exports = mongoose.model('gsf-mean', usersSchema);

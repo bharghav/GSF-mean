@@ -3,11 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://gsfadmin:gsfadmin@cluster0-shard-00-00-qjhhz.mongodb.net:27017,cluster0-shard-00-01-qjhhz.mongodb.net:27017,cluster0-shard-00-02-qjhhz.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',
-{
-    useNewUrlParser: true
-});
-const db = mongoose.connection;
+mongoose.connect('mongodb://gsf-mean:gsf_mean@123!!@ds139243.mlab.com:39243/gsf-mean', 
+{ useNewUrlParser: true });
+//const db = mongoose.connection;
+
 
 // initialize app
 const app = express();

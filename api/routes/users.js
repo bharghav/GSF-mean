@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
+const mongoose = require('mongoose');
 const Users = require('../models/users');
 
+mongoose.model('users',{name: String, city: String, amount: Number});
+
 router.get('/', (req, res, next) => {
-         res.status(200).json({
-             message : "Handling get request for /users"
-         });
+        //  res.status(200).json({
+        //      message : "Handling get request for /users"
+        //  });
+
+        mongoose.model('users').find(function(err,users){
+            res.send(users);
+        });
      });
 
 router.post('/', (req, res, next) => {
