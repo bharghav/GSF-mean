@@ -3,9 +3,25 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://gsf-mean:gsf_mean@123!!@ds139243.mlab.com:39243/gsf-mean', 
-{ useNewUrlParser: true });
-//const db = mongoose.connection;
+let uname = "gsf-mean";
+let pasword  = "gsfmean@123" ;
+let uri = "mongodb://gsfmean1:gsf123456@ds241133.mlab.com:41133/gsfmean";
+
+const options = {
+    useNewUrlParser: true,
+  };
+
+  mongoose.connect(uri, options).then(
+    () => {
+        console.log('DB connected');
+    },
+    err => {
+        console.log('not connected');
+
+    }
+);
+
+const db = mongoose.connection;
 
 
 // initialize app
