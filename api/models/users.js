@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //users scheme
 const usersSchema = mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
+    //_id: mongoose.Types.ObjectId,
     name: String,
     city: String,
     amount: Number
