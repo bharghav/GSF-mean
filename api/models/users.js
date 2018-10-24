@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 //users scheme
 const usersSchema = mongoose.Schema({
-   _id: mongoose.Types.ObjectId,
-   name: String,
-   city: String,
-   amount: Number
+    _id: mongoose.Types.ObjectId,
+    name: String,
+    city: String,
+    amount: Number
 });
 
-module.exports = mongoose.model('gsf-mean', usersSchema);
+module.exports = mongoose.model('Users', usersSchema);
