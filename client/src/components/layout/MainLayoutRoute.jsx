@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import MainLayout from '../layout/Main-Layout';
+import Main_Layout from '../layout/Main-Layout';
 import Users from '../users/Users';
 
 class MainLayoutRoute extends Component {
     state = {}
     render() {
         return (
-            <MainLayout>
+            <Main_Layout>
                 <Route path="/users" component={Users} />
-            </MainLayout>
+            </Main_Layout>
         );
     }
 }

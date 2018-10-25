@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 class Header extends Component {
     state = {}
     render() {
@@ -9,7 +10,7 @@ class Header extends Component {
                     <div className="navbar-logo">
                         <Link to="/"> <img className="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" /></Link>
                         <Link to="#!" className="mobile-menu" id="mobile-collapse"> <i className="feather icon-menu icon-toggle-right"></i></Link>
-                        <Link className="mobile-options waves-effect waves-light"> <i className="feather icon-more-horizontal"></i></Link>
+                        <Link to="" className="mobile-options waves-effect waves-light"> <i className="feather icon-more-horizontal"></i></Link>
                     </div>
                     <div className="navbar-container container-fluid">
                         <ul className="nav-left">
@@ -93,10 +94,10 @@ class Header extends Component {
                                     </div>
                                     <ul className="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <li>
-                                            <Link><i className="feather icon-user"></i> Profile</Link>
+                                            <Link to="#"><i className="feather icon-user"></i> Profile</Link>
                                         </li>
                                         <li>
-                                            <Link><i className="feather icon-log-out"></i> Logout</Link>
+                                            <Link to="#"><i className="feather icon-log-out"></i> Logout</Link>
                                         </li>
                                     </ul>
                                 </div>
