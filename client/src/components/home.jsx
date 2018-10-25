@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-
-import $ from 'jquery';
-import { Carousel, Modal,Button, Panel,Image,Row,Col } from 'react-bootstrap';
-
 class Home extends Component {
     state = {  }
     render() { 
