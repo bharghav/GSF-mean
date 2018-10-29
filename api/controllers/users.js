@@ -2,7 +2,6 @@ const Users = require('../models/users');
 
 exports.users_get_all = (req, res, next) => {
 
-    //console.log("Request "+ req);
     Users.find()
             .select('name city amount _id')
             .exec()

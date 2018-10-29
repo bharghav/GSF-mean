@@ -15,13 +15,13 @@ class Sidebar extends Component {
                                 </a>
                                 <ul className="pcoded-submenu">
                                     <li className="active">
-                                        <a href="index.html" className="waves-effect waves-dark">
-                                            <span className="pcoded-mtext">Default</span>
+                                        <a href="addUser" className="waves-effect waves-dark">
+                                            <span className="pcoded-mtext">Add User</span>
                                         </a>
                                     </li>
                                     <li className="">
-                                        <a href="dashboard-crm.html" className="waves-effect waves-dark">
-                                            <span className="pcoded-mtext">CRM</span>
+                                        <a href="users" className="waves-effect waves-dark">
+                                            <span className="pcoded-mtext">User List</span>
                                         </a>
                                     </li>
                                     <li className="">
