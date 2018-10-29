@@ -9,17 +9,13 @@ class Sidebar extends Component {
                         <div className="pcoded-navigation-label">Navigation</div>
                         <ul className="pcoded-item pcoded-left-item">
                             <li className="pcoded-hasmenu active pcoded-trigger">
-                                <a href="javascript:void(0)" className="waves-effect waves-dark">
+                                <a href="#1" className="waves-effect waves-dark">
                                     <span className="pcoded-micon"><i className="feather icon-home"></i></span>
                                     <span className="pcoded-mtext">Dashboard</span>
                                 </a>
                                 <ul className="pcoded-submenu">
+                                    
                                     <li className="active">
-                                        <a href="addUser" className="waves-effect waves-dark">
-                                            <span className="pcoded-mtext">Add User</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
                                         <a href="users" className="waves-effect waves-dark">
                                             <span className="pcoded-mtext">User List</span>
                                         </a>

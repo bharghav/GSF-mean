@@ -22,14 +22,14 @@ class Main_Layout extends Component {
 
                         <div className="showChat_inner">
                             <div className="media chat-inner-header">
-                                <a className="back_chatBox">
+                                <a className="back_chatBox" href="#2">
                                     <i className="feather icon-x"></i> Josephin Doe
                         </a>
                             </div>
                             <div className="main-friend-chat">
                                 <div className="media chat-messages">
                                     <a className="media-left photo-table" href="#!">
-                                        <img className="media-object img-radius img-radius m-t-5" src="assets/images/avatar-2.jpg" alt="Generic placeholder image" />
+                                        <img className="media-object img-radius img-radius m-t-5" src="assets/images/avatar-2.jpg" alt="Generic placeholder" />
                                     </a>
                                     <div className="media-body chat-menu-content">
                                         <div className="">
@@ -48,7 +48,7 @@ class Main_Layout extends Component {
                                 </div>
                                 <div className="media chat-messages">
                                     <a className="media-left photo-table" href="#!">
-                                        <img className="media-object img-radius img-radius m-t-5" src="assets/images/avatar-2.jpg" alt="Generic placeholder image" />
+                                        <img className="media-object img-radius img-radius m-t-5" src="assets/images/avatar-2.jpg" alt="Generic placeholder" />
                                     </a>
                                     <div className="media-body chat-menu-content">
                                         <div className="">

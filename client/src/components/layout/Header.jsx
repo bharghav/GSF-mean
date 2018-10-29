@@ -45,7 +45,7 @@ class Header extends Component {
                                         </li>
                                         <li>
                                             <div className="media">
-                                                <img className="img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image" />
+                                                <img className="img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder" />
                                                 <div className="media-body">
                                                     <h5 className="notification-user">John Doe</h5>
                                                     <p className="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -55,7 +55,7 @@ class Header extends Component {
                                         </li>
                                         <li>
                                             <div className="media">
-                                                <img className="img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image" />
+                                                <img className="img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder " />
                                                 <div className="media-body">
                                                     <h5 className="notification-user">Joseph William</h5>
                                                     <p className="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -65,7 +65,7 @@ class Header extends Component {
                                         </li>
                                         <li>
                                             <div className="media">
-                                                <img className="img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image" />
+                                                <img className="img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder " />
                                                 <div className="media-body">
                                                     <h5 className="notification-user">Sara Soudein</h5>
                                                     <p className="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -88,7 +88,7 @@ class Header extends Component {
 
                                 <div className="dropdown-primary dropdown">
                                     <div className="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="assets/images/avatar-4.jpg" className="img-radius" alt="User-Profile-Image" />
+                                        <img src="assets/images/avatar-4.jpg" className="img-radius" alt="User-Profile" />
                                         <span>John Doe</span>
                                         <i className="feather icon-chevron-down"></i>
                                     </div>
