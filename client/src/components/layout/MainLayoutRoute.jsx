@@ -10,6 +10,7 @@ class MainLayoutRoute extends Component {
         return (
             <Main_Layout>
                 <Route path="/users" component={Users} />
+                <Route path="/addUser" component={Users} />
             </Main_Layout>
         );
     }
