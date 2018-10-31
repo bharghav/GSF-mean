@@ -1,18 +1,83 @@
 import React, { Component } from 'react';
 class Login extends Component {
     state = {}
+
+    
+
     render() {
+
+        const pStyle = {
+            border: '0px solid red',
+            marginTop: '40px',
+            width: '35%',
+            margin: 'auto'
+          };
+
         return (
             <div>
-                
-                <section class="login-block">
+
+                <div class="theme-loader" >
+      <div class="loader-track">
+          <div class="preloader-wrapper">
+              <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+              <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+            
+              <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+            
+              <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+    <section class="login-block" style={pStyle}>
+       
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     
                     <form class="md-float-material form-material">
                         <div class="text-center">
-                            <img src="assets/images/logo.png" alt="logo.png" />
+                            <img src="assets/images/logo.png" alt="logo.png"/>
                         </div>
                         <div class="auth-box card">
                             <div class="card-block">
@@ -61,10 +126,12 @@ class Login extends Component {
                     </div>
                     
                 </div>
-                
+               
             </div>
             
-            </section>
+        
+        
+    </section>
 
             </div>
         );
