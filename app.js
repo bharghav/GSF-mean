@@ -36,11 +36,12 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-const usersRoutes = require('./api/routes/users');
+const personsRoutes = require('./api/routes/persons');
+const userRoutes = require('./api/routes/users');
 
 //Routes with handle server
-app.use('/users', usersRoutes);
-
+app.use('/persons', personsRoutes);
+app.use('/users', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
     next(error);
 });
 
-app.use((error, req, res, next) => {
+app.use((error, req, res, next) => { console.log('enter'); 
     res.status(error.status || 500);
     res.json({
         error: {
