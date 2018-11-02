@@ -32,6 +32,34 @@ class Users extends Component {
 
         this.showCreateCustomer = this.showCreateCustomer.bind(this); 
         this.changeHandle = this.changeHandle.bind(this);
+        this.formSubmit = this.formSubmit.bind(this);
+    }
+
+    formSubmit(e){
+
+        const reqData = {
+            "name": this.state.name,
+            "city": this.state.city,
+            "amount" : this.state.amount
+        };
+
+        fetch('http://localhost:4500/persons',
+        { 
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify(reqData)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then((response) => {
+            this.setState({
+                mode: 'list'
+            });
+        });
     }
 
     changeHandle(e){
@@ -81,11 +109,11 @@ class Users extends Component {
 
     componentDidMount() {
         
-        fetch('http://localhost:4500/users',{ method: 'GET'})
+        fetch('http://localhost:4500/persons',{ method: 'GET'})
         .then((result) => {
             return  result.json();
         }).then((jsonResult) => {
-            this.setState({ usersList: jsonResult.users });
+            this.setState({ usersList: jsonResult.persons });
         });
     }
 
@@ -144,7 +172,7 @@ class Users extends Component {
                                 
                                 <div className="row m-t-30">
                                     <div className="col-md-12">
-                                        <button type="button" disabled={!this.state.formValid}  className="text-center" value="submit">SUBMIT</button>
+                                    <button onClick={this.formSubmit} type="button"  className="text-center" value="submit">SUBMIT</button>
                                     </div>
                                 </div>
                                 
