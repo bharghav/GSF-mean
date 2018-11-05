@@ -1,0 +1,15 @@
+.form-control-feedback {
+    margin-top: .25rem;
+}
+
+.has-danger .col-form-label,
+.has-danger .custom-control,
+.has-danger .form-check-label,
+.has-danger .form-control-feedback,
+.has-danger .form-control-label {
+    color: #d9534f;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
