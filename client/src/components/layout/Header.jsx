@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.clear();
+    }
     state = {}
     render() {
         return (
@@ -97,7 +102,7 @@ class Header extends Component {
                                             <Link to="#"><i className="feather icon-user"></i> Profile</Link>
                                         </li>
                                         <li>
-                                            <Link to="#"><i className="feather icon-log-out"></i> Logout</Link>
+                                            <Link to="#" onClick={this.logout.bind(this)}><i className="feather icon-log-out"></i> Logout</Link>
                                         </li>
                                     </ul>
                                 </div>
