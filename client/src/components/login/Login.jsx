@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
+
 import '../login/Login.css';
 class Login extends Component {
     constructor(props) {
@@ -69,7 +70,32 @@ class Login extends Component {
             this.validate();
 
         if (!this.state.has_error) {
-            console.log("username: " + username + " password: " + password);
+            // console.log("username: " + username + " password: " + password);
+            const formData = {
+                "email": username,
+                "password": password
+            };
+            fetch('http://localhost:4500/auth/login/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            }).then((response) => response.json())
+                .then((responseJson) => {
+                    localStorage.setItem("token", responseJson.token);
+                    this.props.history.push("/users");
+
+                })
+                .catch((error) => {
+                    console.error("error:" + error);
+                    this.props.history.push("/");
+
+                });
+
+
+
         }
 
 

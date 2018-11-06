@@ -16,8 +16,10 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.2",
+    "bcrypt-nodejs": "0.0.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
+    "jwt-simple": "^0.5.5",
     "mongoose": "^5.3.5",
     "nodemon": "^1.18.4"
   }

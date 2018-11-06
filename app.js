@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 let uname = "gsf-mean";
-let pasword  = "gsfmean@123" ;
+let pasword = "gsfmean@123";
 let uri = "mongodb://gsfmean1:gsf123456@ds241133.mlab.com:41133/gsfmean";
 
 const options = {
     useNewUrlParser: true,
-  };
+};
 
-  mongoose.connect(uri, options).then(
+mongoose.connect(uri, options).then(
     () => {
         console.log('DB connected');
     },
@@ -35,11 +35,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(cors());
+const auth = require('./api/auth');
 
 const personsRoutes = require('./api/routes/persons');
 const userRoutes = require('./api/routes/users');
 
 //Routes with handle server
+app.use('/auth', auth.router);
 app.use('/persons', personsRoutes);
 app.use('/users', userRoutes);
 
@@ -49,7 +51,8 @@ app.use((req, res, next) => {
     next(error);
 });
 
-app.use((error, req, res, next) => { console.log('enter'); 
+app.use((error, req, res, next) => {
+    console.log('enter');
     res.status(error.status || 500);
     res.json({
         error: {
