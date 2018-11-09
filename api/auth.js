@@ -18,9 +18,8 @@ router.post('/login', async (req, res, next) => {
             StatusText: 'Email or Password invalid',
             message: 'error'
         });
-    // console.log(user);
-    bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
 
+    bcrypt.compare(loginData.password, user.password, (err, isMatch) => {
         if (!isMatch)
             return res.status(401).send({
                 statusCode: 401,
@@ -29,7 +28,7 @@ router.post('/login', async (req, res, next) => {
             });
 
         createSendToken(res, user);
-    })
+    });
 })
 
 function createSendToken(res, user) {

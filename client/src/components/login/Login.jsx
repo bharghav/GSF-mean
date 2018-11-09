@@ -70,7 +70,6 @@ class Login extends Component {
             this.validate();
 
         if (!this.state.has_error) {
-            // console.log("username: " + username + " password: " + password);
             const formData = {
                 "email": username,
                 "password": password
@@ -84,26 +83,23 @@ class Login extends Component {
                 body: JSON.stringify(formData),
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    localStorage.setItem("token", responseJson.token);
-                    this.props.history.push("/users");
-
+                    if (responseJson.statusCode === 200) {
+                        localStorage.setItem("token", responseJson.token);
+                        this.props.history.push("/users");
+                    } else {
+                        this.setState({ error_msg: responseJson.StatusText });
+                    }
                 })
                 .catch((error) => {
                     console.error("error:" + error);
                     this.props.history.push("/");
 
                 });
-
-
-
         }
-
-
 
     }
 
     render() {
-
         const pStyle = {
             border: '0px solid red',
             marginTop: '40px',
@@ -116,7 +112,11 @@ class Login extends Component {
         const passwordGroupClass = classNames('form-group ',
             { 'has-danger': this.state.password_error }
         );
+        let errormsg;
 
+        if (this.state.error_msg) {
+            errormsg = <p className="form-group has-danger"><span className="form-control-feedback">{this.state.error_msg}</span></p>
+        }
         return (
             <div>
                 <div className="theme-loader" >
@@ -185,6 +185,7 @@ class Login extends Component {
                                                 </div>
                                             </div>
                                             <p className="text-muted text-center p-b-5">Sign in with your regular account</p>
+                                            {errormsg}
                                             <div className={emailGroupClass}>
                                                 <input type="text" id="username" name="username" className="form-control" onChange={this.onChangeUsername.bind(this)} />
                                                 <span className="form-bar"></span>
