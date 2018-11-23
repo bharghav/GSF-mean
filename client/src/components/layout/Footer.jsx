@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 class Footer extends Component {
-    state = {}
+
     render() {
         return (
-
-            <div></div>
-
+            <footer>
+                <div className="pull-right">
+                    Copyright &copy;
+                    {(new Date().getFullYear())} All rights reserved
+                </div>
+                <div className="clearfix"></div>
+            </footer>
         );
     }
 }

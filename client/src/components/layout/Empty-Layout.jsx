@@ -3,7 +3,7 @@ class EmptyLayout extends Component {
     state = {}
     render() {
         return (
-            <div className="container">
+            <div className="login_wrapper">
                 {this.props.children}
             </div>
         );

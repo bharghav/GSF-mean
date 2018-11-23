@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { Redirect } from 'react-router-dom';
 
 
 import '../login/Login.css';
@@ -14,7 +15,8 @@ class Login extends Component {
             password_error: '',
             error: null,
             error_msg: '',
-            has_error: false
+            has_error: false,
+            success: false
         };
     }
 
@@ -55,6 +57,7 @@ class Login extends Component {
         if (this.state.email_error.length === 0 && this.state.password_error.length === 0) {
             has_error = false;
         }
+
         if (username.length === 0 || password.length === 0) {
             has_error = true;
         }
@@ -74,6 +77,8 @@ class Login extends Component {
                 "email": username,
                 "password": password
             };
+
+            //console.log(process.env.API_URL)
             fetch('http://localhost:4500/auth/login/', {
                 method: 'POST',
                 headers: {
@@ -85,21 +90,27 @@ class Login extends Component {
                 .then((responseJson) => {
                     if (responseJson.statusCode === 200) {
                         localStorage.setItem("token", responseJson.token);
-                        this.props.history.push("/users");
+                        this.setState({ success: true });
                     } else {
                         this.setState({ error_msg: responseJson.StatusText });
                     }
                 })
                 .catch((error) => {
                     console.error("error:" + error);
-                    this.props.history.push("/");
-
                 });
         }
 
     }
 
+
     render() {
+        if (this.state.success) {
+            return <Redirect to={'/users'} />
+        }
+
+        if (localStorage.getItem('token')) {
+            return <Redirect to={'/users'} />
+        }
         const pStyle = {
             border: '0px solid red',
             marginTop: '40px',
@@ -169,72 +180,71 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
-                <section className="login-block" style={pStyle}>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-sm-12">
-                                <form className="md-float-material form-material">
-                                    <div className="text-center">
-                                        <img src="assets/images/logo.png" alt="logo.png" />
-                                    </div>
-                                    <div className="auth-box card">
-                                        <div className="card-block">
-                                            <div className="row m-b-20">
-                                                <div className="col-md-12">
-                                                    <h3 className="text-center txt-primary">Sign In</h3>
-                                                </div>
-                                            </div>
-                                            <p className="text-muted text-center p-b-5">Sign in with your regular account</p>
-                                            {errormsg}
-                                            <div className={emailGroupClass}>
-                                                <input type="text" id="username" name="username" className="form-control" onChange={this.onChangeUsername.bind(this)} />
-                                                <span className="form-bar"></span>
-                                                <label className="float-label">Email</label>
-                                                <div className="form-control-feedback">{this.state.email_error}</div>
-                                            </div>
-                                            <div className={passwordGroupClass}>
-                                                <input type="password" name="password" className="form-control" onChange={this.onChangePassword.bind(this)} />
-                                                <span className="form-bar"></span>
-                                                <label className="float-label">Password</label>
-                                                <div className="form-control-feedback">{this.state.password_error}</div>
-                                            </div>
-                                            <div className="row m-t-25 text-left">
-                                                <div className="col-12">
-                                                    <div className="checkbox-fade fade-in-primary">
-                                                        <label>
-                                                            <input type="checkbox" value="" />
-                                                            <span className="cr"><i className="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                            <span className="text-inverse">Remember me</span>
-                                                        </label>
-                                                    </div>
-                                                    <div className="forgot-phone text-right float-right">
-                                                        <a href="auth-reset-password.html" className="text-right f-w-600"> Forgot Password?</a>
+                <section className="login_content">
+                    <section className="login-block" style={pStyle}>
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <form className="md-float-material form-material">
+
+                                        <div className="auth-box card">
+                                            <div className="card-block">
+                                                <div className="row m-b-20">
+                                                    <div className="col-md-12">
+                                                        <h3 className="text-center txt-primary">Sign In</h3>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="row m-t-30">
-                                                <div className="col-md-12">
-                                                    <button type="button" className="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" disabled={this.state.has_error} onClick={(evt) => {
-                                                        if (evt !== undefined && evt.preventDefault) { evt.preventDefault(); }
-                                                        this.setState({
-                                                            has_error: false,
-                                                            email_error: '',
-                                                            password_error: '',
-                                                            error: null,
-                                                            error_msg: ''
-                                                        }, () => {
-                                                            this.handleSubmit(evt);
-                                                        });
-                                                    }} >LOGIN</button>
+                                                <p className="text-muted text-center p-b-5">Sign in with your regular account</p>
+
+                                                {errormsg}
+                                                <div className={emailGroupClass}>
+                                                    <input type="text" id="username" name="username" autoComplete="username" placeholder="Email" className="form-control" onChange={this.onChangeUsername.bind(this)} />
+                                                    <span className="form-bar"></span>
+
+                                                    <div className="form-control-feedback">{this.state.email_error}</div>
                                                 </div>
+                                                <div className={passwordGroupClass}>
+                                                    <input type="password" name="password" autoComplete="current-password" placeholder="Password" className="form-control" onChange={this.onChangePassword.bind(this)} />
+                                                    <span className="form-bar"></span>
+
+                                                    <div className="form-control-feedback">{this.state.password_error}</div>
+                                                </div>
+                                                <div className="row m-t-25 text-left">
+                                                    <div className="col-12">
+                                                        <div className="checkbox-fade fade-in-primary">
+                                                            <label>
+                                                                <input type="checkbox" value="" />
+                                                                <span className="cr"><i className="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                                <span className="text-inverse">Remember me</span>
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="row m-t-30">
+                                                    <div className="col-md-12">
+                                                        <button type="button" className="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" disabled={this.state.has_error} onClick={(evt) => {
+                                                            if (evt !== undefined && evt.preventDefault) { evt.preventDefault(); }
+                                                            this.setState({
+                                                                has_error: false,
+                                                                email_error: '',
+                                                                password_error: '',
+                                                                error: null,
+                                                                error_msg: ''
+                                                            }, () => {
+                                                                this.handleSubmit(evt);
+                                                            });
+                                                        }} >LOGIN</button>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                            <p className="text-inverse text-left">Don't have an account?<a href="auth-sign-up-social.html"> <b>Register here </b></a>for free!</p>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 </section>
             </div>
         );

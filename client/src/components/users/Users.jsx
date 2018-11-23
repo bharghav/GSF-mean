@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Redirect } from 'react-router-dom';
 export const FormErrors = ({ formErrors }) =>
     <div className='formErrors'>
         {Object.keys(formErrors).map((fieldName, i) => {
@@ -27,22 +27,27 @@ class Users extends Component {
             nameValid: false,
             cityValid: false,
             amountValid: false,
-            formValid: false
+            formValid: false,
+            redirect: false
         }
 
         this.showCreateCustomer = this.showCreateCustomer.bind(this);
         this.changeHandle = this.changeHandle.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
+        this.getUsersList = this.getUsersList.bind(this);
     }
 
     formSubmit(e) {
+        e.preventDefault();
+        this.adduser();
+    }
 
+    adduser() {
         const reqData = {
             "name": this.state.name,
             "city": this.state.city,
             "amount": this.state.amount
         };
-
         fetch('http://localhost:4500/persons',
             {
                 method: 'POST',
@@ -52,9 +57,7 @@ class Users extends Component {
                 },
                 body: JSON.stringify(reqData)
             })
-            .then(function (response) {
-                return response.json();
-            })
+            .then(this.getUsersList)
             .then((response) => {
                 this.setState({
                     mode: 'list'
@@ -109,20 +112,28 @@ class Users extends Component {
     }
 
     componentDidMount() {
-
-        fetch('http://localhost:4500/persons', { method: 'GET' })
-            .then((result) => {
-                return result.json();
-            }).then((jsonResult) => {
-                this.setState({ usersList: jsonResult.persons });
+        if (localStorage.getItem('token')) {
+            //console.log('storage checking')
+        } else {
+            this.setState({
+                redirect: true
             });
+        }
+        this.getUsersList();
+    }
+
+    componentWillUnmount() {
+        this.setState({ usersList: [] });
+    }
+
+    getUsersList() {
+        fetch('http://localhost:4500/persons', { method: 'GET' })
+            .then(response => response.json())
+            .then(response => this.setState({ usersList: response.persons }))
+            .catch(err => console.error(err));
     }
 
     _renderObject(ObjectTest) {
-
-        if (localStorage.getItem("token") === null) {
-            this.props.history.push("/");
-        }
 
         return Object.entries(ObjectTest).map(([key, value], i) => {
             return (
@@ -140,16 +151,17 @@ class Users extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/" />
+        }
 
         if (this.state.mode === 'add') {
             return (
                 <div className="col-sm-12">
-
                     <section className="login-block">
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-sm-12">
-
                                     <form className="md-float-material form-material" name="createUserForm">
                                         <div className="auth-box card">
                                             <div className="card-block">
@@ -173,26 +185,18 @@ class Users extends Component {
                                                     <input type="text" name="amount" placeholder="Amount" value={this.state.amount} className="form-control" onChange={this.changeHandle} />
                                                     <span className="form-bar"></span>
                                                 </div>
-
-
                                                 <div className="row m-t-30">
                                                     <div className="col-md-12">
                                                         <button onClick={this.formSubmit} type="button" className="text-center" value="submit">SUBMIT</button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </section>
-
                 </div>
             );
         } else {
@@ -201,9 +205,9 @@ class Users extends Component {
                     <div className="card">
                         <div className="card-header">
                             <h5>Users List</h5>
-                            <span>use class <code>table</code> inside table element</span>
-                            <button className="btn btn-primary float-right" onClick={this.showCreateCustomer}>+Add</button>
+                            <button className="btn btn-primary pull-right" onClick={this.showCreateCustomer}>+Add</button>
                         </div>
+                        <div className="clearfix"></div>
                         <div className="card-block table-border-style">
                             <div className="table-responsive">
                                 <table className="table">
