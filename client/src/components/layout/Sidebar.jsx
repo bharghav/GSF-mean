@@ -14,6 +14,7 @@ class Sidebar extends Component {
                     <div className="menu_section">
                         <ul className="nav side-menu">
                             <li><Link to="/users"><i className="fa fa-user"></i> User List </Link></li>
+                            <li><Link to="/clients"><i className="fa fa-table"></i> Client List </Link></li>
                         </ul>
                     </div>
                 </div>

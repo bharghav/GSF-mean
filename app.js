@@ -39,11 +39,13 @@ const auth = require('./api/auth');
 
 const personsRoutes = require('./api/routes/persons');
 const userRoutes = require('./api/routes/users');
+const clientsRoutes = require('./api/routes/clients');
 
 //Routes with handle server
 app.use('/auth', auth.router);
 app.use('/persons', personsRoutes);
 app.use('/users', userRoutes);
+app.use('/clients', clientsRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

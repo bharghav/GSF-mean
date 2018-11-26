@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import MainLayout from '../layout/Main-Layout';
 import Users from '../users/Users';
+import Clients from '../clients/Clients';
 
 
 class MainLayoutRoute extends Component {
@@ -11,7 +12,7 @@ class MainLayoutRoute extends Component {
         return (
             <MainLayout>
                 <Route path="/users" component={Users} />
-
+                <Route path="/clients" component={Clients} />
             </MainLayout>
         );
     }
