@@ -5,5 +5,7 @@ const auth = require('../auth')
 clientsController = require('../controllers/clients');
 
 router.get('/', clientsController.clients_get_all);
+router.post('/add', clientsController.add_client);
+
 
 module.exports = router;

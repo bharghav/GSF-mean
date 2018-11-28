@@ -46,6 +46,7 @@ app.use('/auth', auth.router);
 app.use('/persons', personsRoutes);
 app.use('/users', userRoutes);
 app.use('/clients', clientsRoutes);
+//app.use('/clients/add', clientsRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
@@ -54,7 +55,7 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-    console.log('enter');
+    console.log('error block');
     res.status(error.status || 500);
     res.json({
         error: {

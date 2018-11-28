@@ -25,3 +25,23 @@ exports.clients_get_all = (req, res, next) => {
             });
         });
 }
+
+exports.add_client = (req, res) => {
+    const clientData = req.body;
+    var clientObj = new Clients(clientData);
+    clientObj.save((err) => {
+        if (err) {
+            console.log(err);
+            return res.status(400).send({
+                statusCode: 400,
+                message: err.message
+            });
+        }
+        return res.status(200).send({
+            statusCode: 200,
+            message: 'Client added successfully'
+        })
+    })
+
+
+}
