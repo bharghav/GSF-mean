@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 export const FormErrors = ({ formErrors }) =>
-    <div className='formErrors'>
+    <div className='formErrors errCompCls' style={{ padding:"5px"}}>
         {Object.keys(formErrors).map((fieldName, i) => {
             if (formErrors[fieldName].length > 0) {
                 return (
-                    <p key={i}>{fieldName} {formErrors[fieldName]}</p>
+                    <p key={i} style={{ margin:"1px"}}>{fieldName} {formErrors[fieldName]}</p>
                 )
             } else {
                 return '';
@@ -28,7 +28,8 @@ class Users extends Component {
             cityValid: false,
             amountValid: false,
             formValid: false,
-            redirect: false
+            redirect: false,
+            has_error: false
         }
 
         this.showCreateCustomer = this.showCreateCustomer.bind(this);
@@ -43,6 +44,7 @@ class Users extends Component {
     }
 
     adduser() {
+        console.log("inside adduser function");
         const reqData = {
             "name": this.state.name,
             "city": this.state.city,
@@ -66,9 +68,12 @@ class Users extends Component {
     }
 
     changeHandle(e) {
+        console.log("inside changeHandle funciton "+this.state.has_error);
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value }, () => { this.validateField(name, value) });
+        this.setState({ has_error: !(this.state.nameValid && this.state.cityValid && this.state.amountValid)});
+        console.log("After inside changeHandle funciton "+this.state.has_error);
     }
 
     validateField(fieldName, value) {
@@ -76,23 +81,29 @@ class Users extends Component {
         let nameValid = this.state.nameValid;
         let cityValid = this.state.cityValid;
         let amountValid = this.state.amountValid;
+        //let has_error = true;
 
         switch (fieldName) {
             case 'name':
                 nameValid = value.match(/^([a-zA-Z' ]+)$/);
                 fieldValidationErrors.name = nameValid ? '' : ' is invalid';
+                //has_error = nameValid ? false:true;
                 break;
             case 'city':
                 cityValid = value.length >= 3;
                 fieldValidationErrors.city = cityValid ? '' : ' is too short';
+                //has_error = cityValid ? false:true;
                 break;
             case 'amount':
                 amountValid = value.length >= 4;
                 fieldValidationErrors.amount = amountValid ? '' : ' is too short';
+                //has_error = amountValid ? false:true;
                 break;
             default:
                 break;
         }
+
+
         this.setState({
             formErrors: fieldValidationErrors,
             nameValid: nameValid,
@@ -109,6 +120,17 @@ class Users extends Component {
         this.setState({
             mode: 'add'
         });
+        this.validate();
+    }
+
+    validate() {
+        
+        const { name, city, amount } = this.state;
+        let has_error = false;
+        if (name.length === 0 || city.length === 0 || amount.length === 0) {
+            has_error = true;
+        }
+        this.setState({ has_error: has_error });
     }
 
     componentDidMount() {
@@ -170,9 +192,7 @@ class Users extends Component {
                                                         <h3 className="text-center txt-primary">Add User</h3>
                                                     </div>
                                                 </div>
-                                                <div className="panel panel-default">
-                                                    <FormErrors formErrors={this.state.formErrors} />
-                                                </div>
+                                                
                                                 <div className={`form-group ${this.errorClass(this.state.formErrors.name)}`}>
                                                     <input type="text" name="name" placeholder="Name" value={this.state.name} className="form-control" onChange={this.changeHandle} />
                                                     <span className="form-bar"></span>
@@ -185,9 +205,12 @@ class Users extends Component {
                                                     <input type="text" name="amount" placeholder="Amount" value={this.state.amount} className="form-control" onChange={this.changeHandle} />
                                                     <span className="form-bar"></span>
                                                 </div>
+                                                <div className="panel panel-default">
+                                                    <FormErrors formErrors={this.state.formErrors} />
+                                                </div>
                                                 <div className="row m-t-30">
                                                     <div className="col-md-12">
-                                                        <button onClick={this.formSubmit} type="button" className="text-center" value="submit">SUBMIT</button>
+                                                        <button onClick={this.formSubmit} type="button" className="text-center" value="submit" disabled={this.state.has_error}>SUBMIT</button>
                                                     </div>
                                                 </div>
                                             </div>

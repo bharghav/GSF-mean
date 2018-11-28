@@ -185,7 +185,7 @@ class Login extends Component {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-sm-12">
-                                    <form className="md-float-material form-material">
+                                    <form className="md-float-material form-material" name="loginForm">
 
                                         <div className="auth-box card">
                                             <div className="card-block">
@@ -197,17 +197,17 @@ class Login extends Component {
                                                 <p className="text-muted text-center p-b-5">Sign in with your regular account</p>
 
                                                 {errormsg}
-                                                <div className={emailGroupClass}>
-                                                    <input type="text" id="username" name="username" autoComplete="username" placeholder="Email" className="form-control" onChange={this.onChangeUsername.bind(this)} />
-                                                    <span className="form-bar"></span>
+                                                <div className={emailGroupClass}  style={{ marginBottom: "10px" }}>
+                                                    <input type="text" id="username" name="username" autoComplete="username" placeholder="Email" className="form-control" onChange={this.onChangeUsername.bind(this)}  style={{ margin: 0 }} />
+                                                    <span className="form-bar">{this.state.email_error}</span>
 
-                                                    <div className="form-control-feedback">{this.state.email_error}</div>
+                                                    <div className="form-control-feedback"></div>
                                                 </div>
-                                                <div className={passwordGroupClass}>
-                                                    <input type="password" name="password" autoComplete="current-password" placeholder="Password" className="form-control" onChange={this.onChangePassword.bind(this)} />
-                                                    <span className="form-bar"></span>
+                                                <div className={passwordGroupClass}  style={{ marginBottom: "10px" }}>
+                                                    <input type="password" name="password" autoComplete="current-password" placeholder="Password" className="form-control" onChange={this.onChangePassword.bind(this)}  style={{ margin: 0 }} />
+                                                    <span className="form-bar">{this.state.password_error}</span>
 
-                                                    <div className="form-control-feedback">{this.state.password_error}</div>
+                                                    <div className="form-control-feedback"></div>
                                                 </div>
                                                 <div className="row m-t-25 text-left">
                                                     <div className="col-12">
