@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+
 class Clients extends Component {
     constructor(props) {
         super(props);
@@ -66,6 +67,21 @@ class Clients extends Component {
         document.getElementById("hidePopUpBtn").click();
     }
 
+
+    imgFormatter(edit, row) {
+        //console.log(`cell: ${cell}`);
+        return <a href="#" onClick={this.editClients(edit, row)}>
+            <i className="fa fa-pencil" aria-hidden="true"></i>
+        </a>;
+    }
+
+    editClients(edit, row) {
+        //event.persist();
+        console.log('clicked');
+        console.log(`row: ${row.id} ${edit}`);
+    }
+
+
     render() {
 
         const options = {
@@ -109,7 +125,7 @@ class Clients extends Component {
                                             <TableHeaderColumn dataField='id' headerAlign='center' expandable={false} isKey width='180' hiddenOnInsert> ID</TableHeaderColumn>
                                             <TableHeaderColumn dataField='clientId' dataSort={true} width='300' >Client Id</TableHeaderColumn>
                                             <TableHeaderColumn dataField='clientName' dataSort={true} expandable={false} >Client Name</TableHeaderColumn>
-
+                                            <TableHeaderColumn dataField='edit' dataFormat={this.imgFormatter.bind(this)}>Edit</TableHeaderColumn>
                                         </BootstrapTable>
                                     ) : (
                                             <div>loading...</div>
