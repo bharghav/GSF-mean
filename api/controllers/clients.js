@@ -42,6 +42,30 @@ exports.add_client = (req, res) => {
             message: 'Client added successfully'
         })
     })
+}
 
+exports.update_client = (req, res) => {
+    const clientData = req.body;
+    const updateData = {
+        "clientId": clientData.clientId,
+        "clientName": clientData.clientName
+    };
+
+    Clients.findOneAndUpdate({
+        _id: clientData.id
+    }, {
+        $set: updateData
+    }, function (err, product) {
+        if (err) {
+            return res.status(400).send({
+                statusCode: 400,
+                message: err.message
+            });
+        }
+        return res.status(200).send({
+            statusCode: 200,
+            message: 'Client updated successfully'
+        })
+    });
 
 }

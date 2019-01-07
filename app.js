@@ -9,6 +9,7 @@ let uri = "mongodb://gsfmean1:gsf123456@ds241133.mlab.com:41133/gsfmean";
 
 const options = {
     useNewUrlParser: true,
+    useFindAndModify: false
 };
 
 mongoose.connect(uri, options).then(
@@ -46,7 +47,7 @@ app.use('/auth', auth.router);
 app.use('/persons', personsRoutes);
 app.use('/users', userRoutes);
 app.use('/clients', clientsRoutes);
-//app.use('/clients/add', clientsRoutes);
+
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

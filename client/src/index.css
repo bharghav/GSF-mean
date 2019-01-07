@@ -16,13 +16,18 @@ code {
 .alert {
   padding: 1px;
   border: 1px thin transparent;
-      border-top-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
   border-radius: 0px;
 }
-.errCompCls{
+
+.errCompCls {
   padding: 5px;
   color: red;
+}
+
+.btn-space {
+  margin-left: 20px;
 }
