@@ -121,23 +121,42 @@ class Clients extends Component {
     }
 
     clientDelete = (cell, row, rowIndex) => {
-
         if (window.confirm('Are you sure you wish to delete this item?')) {
-            // this.deleteItem(e) 
             const Id = row.id;
-            console.log('id:' + Id);
+            if (Id != null && Id != '') {
+                this.deleteClient(Id);
+            }
         }
+    }
 
+    // delete client
+    deleteClient(id) {
+        const reqData = {
+            "_id": id
+        };
+        fetch('http://localhost:4500/clients/delete',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reqData)
+            })
+            .then(response => response.json())
+            .then((response) => {
+                if (response.statusCode == 200) {
+                    this.setState({ id: '' });
+                    this.loadData();
+                }
 
-        //const clientName = row.clientName;
-        // this.setState({ showModal: true, clientId: clientId, clientName: clientName, id: Id });
+            });
     }
 
 
     render() {
 
         const options = {
-
             sizePerPage: 10,  // which size per page you want to locate as default
             pageStartIndex: 1, // where to start counting the pages
             paginationSize: 3,  // the pagination bar size.
@@ -222,49 +241,9 @@ class Clients extends Component {
                             </div>
                         </form>
                     </Modal.Body>
-
                 </Modal>
-                {/*<div className="modal fade" id="clientModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
-                                <h4 className="modal-title" id="myModalLabel">Add/Edit Client</h4>
-                            </div>
-                            <form className="form-horizontal" name="frm" onSubmit={this.props.handleSubmit}>
-                                <div className="modal-body">
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-3" htmlFor="clientId">Client Id:</label>
-                                        <div className="col-sm-9">
-                                            <input type="text" className="form-control" id="clientId" placeholder="Client Id" onChange={this.onChangeClientId.bind(this)} value={this.props.clientId} />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-3" htmlFor="clientName">Client Name:</label>
-                                        <div className="col-sm-9">
-                                            <input type="text" className="form-control" id="clientName" placeholder="Client Name" onChange={this.onChangeClientName.bind(this)} value={this.props.clientName} />
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" onClick={(evt) => {
-                                        if (evt !== undefined && evt.preventDefault) { evt.preventDefault(); }
-                                        this.setState({
-                                            has_error: false,
-                                            error: null,
-                                            error_msg: ''
-                                        }, () => {
-                                            this.handleSubmit(evt);
-                                        });
-                                    }} >Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                                </div>*/}
-            </div >
+            </div>
 
 
         );

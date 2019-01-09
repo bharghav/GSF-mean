@@ -69,3 +69,22 @@ exports.update_client = (req, res) => {
     });
 
 }
+
+exports.delete_client = (req, res) => {
+    const clientData = req.body;
+    Clients.findOneAndDelete({
+            _id: clientData._id
+        },
+        function (err, product) {
+            if (err) {
+                return res.status(400).send({
+                    statusCode: 400,
+                    message: err.message
+                });
+            }
+            return res.status(200).send({
+                statusCode: 200,
+                message: 'Client deleted successfully'
+            })
+        });
+}
