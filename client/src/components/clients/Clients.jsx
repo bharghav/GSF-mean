@@ -12,8 +12,12 @@ class Clients extends Component {
             clientId: '',
             clientName: '',
             showModal: false,
-            id: ''
+            id: '',
+            message: '',
+            statusCode: '',
+            msgClass: ''
         }
+
     }
 
     loadData() {
@@ -65,10 +69,17 @@ class Clients extends Component {
                     },
                     body: JSON.stringify(updateData)
                 })
+                .then(response => response.json())
                 .then((response) => {
-                    this.modalPopupClose();
-                    this.loadData();
+                    if (response.statusCode === 200) {
+                        this.setState({ message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-success' });
+                        this.modalPopupClose();
+                        this.loadData();
+                    } else {
+                        this.setState({ message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-danger' });
+                    }
                 });
+
         } else {
             fetch('http://localhost:4500/clients/add',
                 {
@@ -79,9 +90,15 @@ class Clients extends Component {
                     },
                     body: JSON.stringify(reqData)
                 })
+                .then(response => response.json())
                 .then((response) => {
-                    this.modalPopupClose();
-                    this.loadData();
+                    if (response.statusCode === 200) {
+                        this.setState({ message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-danger' });
+                        this.modalPopupClose();
+                        this.loadData();
+                    } else {
+                        this.setState({ message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-danger' });
+                    }
                 });
         }
 
@@ -123,7 +140,7 @@ class Clients extends Component {
     clientDelete = (cell, row, rowIndex) => {
         if (window.confirm('Are you sure you wish to delete this item?')) {
             const Id = row.id;
-            if (Id != null && Id != '') {
+            if (Id !== null && Id !== '') {
                 this.deleteClient(Id);
             }
         }
@@ -145,17 +162,24 @@ class Clients extends Component {
             })
             .then(response => response.json())
             .then((response) => {
-                if (response.statusCode == 200) {
-                    this.setState({ id: '' });
+                if (response.statusCode === 200) {
+                    this.setState({ id: '', message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-success' });
                     this.loadData();
+                } else {
+                    this.setState({ id: '', message: response.message, statusCode: response.statusCode, msgClass: 'alert alert-danger' });
                 }
-
             });
     }
 
 
     render() {
+        let errormsg;
 
+        if (this.state.message && this.state.statusCode === 400) {
+            errormsg = <div className="col-sm-12"><span className="failure_msg">{this.state.message}</span></div>
+        } else {
+            errormsg = <div className="col-sm-12"><span className="success_msg">{this.state.message}</span></div>
+        }
         const options = {
             sizePerPage: 10,  // which size per page you want to locate as default
             pageStartIndex: 1, // where to start counting the pages
@@ -179,9 +203,12 @@ class Clients extends Component {
                 </div>
                 <div className="clearfix"></div>
                 <div className="row">
+
                     <div className="col-md-12 col-sm-12 col-xs-12">
+
                         <div className="x_panel">
                             <div className="x_content">
+                                {errormsg}
                                 <button onClick={this.modalPopupOpen.bind(this)} type="button" className="btn btn-primary" data-toggle="modal" data-target="#clientModal">
                                     +Add Client
                                 </button>
@@ -192,7 +219,7 @@ class Clients extends Component {
                                             hover noDataIndication="Table is Empty">
                                             <TableHeaderColumn dataField='id' headerAlign='center' expandable={false} isKey width='180' hiddenOnInsert> ID</TableHeaderColumn>
                                             <TableHeaderColumn dataField='clientId' dataSort={true} width='300' >Client Id</TableHeaderColumn>
-                                            <TableHeaderColumn dataField='clientName' dataSort={true} expandable={false} >Client Name</TableHeaderColumn>
+                                            <TableHeaderColumn dataField='clientName' dataSort={true} expandable={false} width='300'>Client Name</TableHeaderColumn>
                                             <TableHeaderColumn dataField='edit' dataFormat={this.actionLinks.bind(this)}>Actions</TableHeaderColumn>
                                         </BootstrapTable>
                                     ) : (
